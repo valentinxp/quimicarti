@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Química Artisur</title>
+  <link rel="stylesheet" href="estilo.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #3196cf;
+    }
+    .icon-bar {
+      position: absolute;
+      right: 20px;
+      top: 30px;
+      display: flex;
+      gap: 20px;
+      font-size: 1.2em;
+      color: white;
+      cursor: pointer;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      background-color: #3196cf;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+      transition: right 0.3s ease;
+      z-index: 9999;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .cart-panel.open {
+      right: 0;
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .cart-header h2 {
+      margin: 0;
+      color: #333;
+    }
+    .cart-close {
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+    .cart-content p {
+      color: #444;
+    }
+    .cart-footer {
+      margin-top: 20px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+    }
+    .btn-comprar {
+      margin-top: 10px;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo Química Artisur" style="max-width: 150px; display: block; margin: 20px auto;" />
+    <div class="icon-bar">
+      <i class="fas fa-search"></i>
+      <i class="fas fa-user"></i>
+      <i class="fas fa-shopping-cart" onclick="toggleCart()"></i>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="#">Productos</a>
+    <a href="#">Contacto</a>
+  </nav>
+
+  <div id="cartPanel" class="cart-panel">
+    <div class="cart-header">
+      <h2>Carrito</h2>
+      <span class="cart-close" onclick="toggleCart()">&times;</span>
+    </div>
+    <div class="cart-content">
+      <p>Tu carrito está vacío.</p>
+    </div>
+    <div class="cart-footer">
+      <p><strong>Subtotal:</strong> $0.00</p>
+      <p><strong>Total:</strong> $0.00</p>
+      <button class="btn-comprar">Iniciar Compra</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleCart() {
+      const cart = document.getElementById("cartPanel");
+      cart.classList.toggle("open");
+    }
+  </script>
+</body>
+</html>
