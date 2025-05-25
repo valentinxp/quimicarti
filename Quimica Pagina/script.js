@@ -1,2 +1,0 @@
-let carrito=[];function agregarAlCarrito(p){carrito.push(p);alert(p+' agregado al carrito.')}
-function enviarPedidoWhatsApp(){if(carrito.length===0){alert('El carrito está vacío.');return;}let m='Hola! Quiero hacer el siguiente pedido:\n\n'+carrito.join('\n');let n='5491173632056';let u=`https://wa.me/${n}?text=${encodeURIComponent(m)}`;window.open(u,'_blank');}
