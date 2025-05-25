@@ -2,50 +2,171 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Química Artisur</title>
   <link rel="stylesheet" href="estilos.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .carrito-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .carrito-contador {
+      background-color: #0d6efd;
+      color: white;
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 0.8em;
+      margin-left: 5px;
+    }
+    .vaciar-btn {
+      margin-top: 10px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .vaciar-btn:hover {
+      background: #b02a37;
+    }
+    .slider-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      margin: 20px 0;
+    }
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 300%;
+    }
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      text-align: center;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .slide img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .slider-controls {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .slider-controls button {
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="imagenes/logo.png" alt="Logo Artisur" style="width: 150px;">
-    <h1>¡Bienvenidos a nuestro sitio web!</h1>
-    <p>Productos de limpieza y más</p>
-  </header>
 
-  <section id="productos">
-    <h2>Sahumerios Mágicos</h2>
-    <div class="producto"><img src="imagenes/sahumerio-energia-limpia.jpg"><h3>Energía Limpia</h3><p>$2500</p></div>
-    <div class="producto"><img src="imagenes/sahumerio-variedad-aromatica.jpg"><h3>Variedad Aromática</h3><p>$2500</p></div>
-    <div class="producto"><img src="imagenes/sahumerio-vainilla.jpg"><h3>Vainilla</h3><p>$2500</p></div>
+  <div class="slider-container">
+    <div class="slider" id="slider">
+      <div class="slide">
+        <img src="imagenes/ariel.jpg" alt="Oferta Ariel">
+        <h3>Ariel 5L - $3.000</h3>
+      </div>
+      <div class="slide">
+        <img src="imagenes/skip.jpg" alt="Oferta Skip">
+        <h3>Skip 5L - $5.700</h3>
+      </div>
+      <div class="slide">
+        <img src="imagenes/producto1.jpg" alt="Producto destacado">
+        <h3>Producto Destacado</h3>
+      </div>
+    </div>
+    <div class="slider-controls">
+      <button onclick="moverSlider(-1)">&#10094;</button>
+      <button onclick="moverSlider(1)">&#10095;</button>
+    </div>
+  </div>
 
-    <h2>Sahumerios Premium</h2>
-    <div class="producto"><img src="imagenes/sahumerio-momentos-azul.jpg"><h3>Momentos Azul</h3><p>$2500</p></div>
+  <div class="carrito" id="carrito">
+    <div class="carrito-header">
+      <h3>Tu Carrito</h3>
+      <span class="carrito-contador" id="contador-carrito">0</span>
+    </div>
+    <ul id="lista-carrito"></ul>
+    <button onclick="enviarPedidoWhatsApp()">Enviar por WhatsApp</button>
+    <button class="vaciar-btn" onclick="vaciarCarrito()">Vaciar carrito</button>
+  </div>
 
-    <h2>Conitos Aromatizantes</h2>
-    <div class="producto"><img src="imagenes/conitos-aromatizantes.jpg"><h3>Conitos Aromatizantes</h3><p>$1000</p></div>
+  <script>
+    let carrito = [];
+    let slideIndex = 0;
+    let sliderAuto;
 
-    <h2>Limpieza</h2>
-    <div class="producto"><img src="imagenes/rejilla-small.jpg"><h3>Rejilla Small</h3><p>$900</p></div>
-    <div class="producto"><img src="imagenes/rejilla-eco.jpg"><h3>Rejilla Eco</h3><p>$700</p></div>
-    <div class="producto"><img src="imagenes/esponja-acero-grande.jpg"><h3>Esponja Acero Grande</h3><p>$1400</p></div>
-    <div class="producto"><img src="imagenes/esponja-chica-1.jpg"><h3>Esponja Chica</h3><p>$600</p></div>
-    <div class="producto"><img src="imagenes/esponja-chica-2.jpg"><h3>Esponja Chica</h3><p>$600</p></div>
-    <div class="producto"><img src="imagenes/esponja-grande.jpg"><h3>Esponja Grande</h3><p>$800</p></div>
+    function agregarAlCarrito(producto) {
+      carrito.push(producto);
+      actualizarCarrito();
+    }
 
-    <h2>Auto</h2>
-    <img src="imagenes/auto-portada.jpg" style="width:100%; border-radius:10px; margin:20px 0;">
-    <div class="producto"><img src="imagenes/shampoo-auto.jpg"><h3>Shampoo para Auto 1L</h3><p>$2800</p></div>
-    <div class="producto"><img src="imagenes/silicona-exterior.jpg"><h3>Silicona Exterior</h3><p>$4000</p></div>
-    <div class="producto"><img src="imagenes/silicona-interior.jpg"><h3>Silicona Interior</h3><p>$4000</p></div>
-  </section>
+    function actualizarCarrito() {
+      const lista = document.getElementById('lista-carrito');
+      const contador = document.getElementById('contador-carrito');
+      lista.innerHTML = '';
+      carrito.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        lista.appendChild(li);
+      });
+      contador.textContent = carrito.length;
+      document.getElementById('carrito').classList.add('active');
+    }
 
-  <footer>
-    <p>📍 Marcos Juárez 1142, Carlos Spegazzini</p>
-    <p>📞 <a href="https://wa.me/5491173632056" target="_blank">1173632056 (WhatsApp)</a></p>
-    <p>📷 <a href="https://instagram.com/21artisur" target="_blank">@21artisur</a></p>
-  </footer>
+    function toggleCarrito() {
+      document.getElementById('carrito').classList.toggle('active');
+    }
 
-  <a href="#" class="whatsapp-float" onclick="enviarPedidoWhatsApp()">📱</a>
-  <script src="script.js"></script>
+    function vaciarCarrito() {
+      carrito = [];
+      actualizarCarrito();
+    }
+
+    function enviarPedidoWhatsApp() {
+      if (carrito.length === 0) {
+        alert('El carrito está vacío.');
+        return;
+      }
+      const mensaje = encodeURIComponent('¡Hola! Quiero hacer el siguiente pedido:\n\n' + carrito.join('\n'));
+      window.open('https://wa.me/5491173632056?text=' + mensaje, '_blank');
+    }
+
+    function moverSlider(direccion) {
+      clearInterval(sliderAuto);
+      cambiarSlide(direccion);
+      iniciarSliderAuto();
+    }
+
+    function cambiarSlide(direccion) {
+      const slider = document.getElementById('slider');
+      slideIndex += direccion;
+      if (slideIndex < 0) slideIndex = 2;
+      if (slideIndex > 2) slideIndex = 0;
+      slider.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }
+
+    function iniciarSliderAuto() {
+      sliderAuto = setInterval(() => cambiarSlide(1), 5000);
+    }
+
+    iniciarSliderAuto();
+  </script>
 </body>
 </html>
