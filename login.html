@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar sesión | Química Artisur</title>
+  <link rel="stylesheet" href="estilo.css" />
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f4f6f8;
+    }
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+      max-width: 400px;
+      width: 100%;
+    }
+    input {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #3196cf;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .google-btn {
+      background: #db4437;
+    }
+  </style>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAewz-r6rwp7zk71UIHsTjwQSj1rmCgNWM",
+      authDomain: "quimicartisur.firebaseapp.com",
+      projectId: "quimicartisur",
+      storageBucket: "quimicartisur.firebasestorage.app",
+      messagingSenderId: "272529571760",
+      appId: "1:272529571760:web:1f8d435e762e61a332e075",
+      measurementId: "G-P0767HS3P8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("login-form").addEventListener("submit", e => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => window.location.href = "admin.html")
+        .catch(err => alert("Error al iniciar sesión: " + err.message));
+    });
+
+    document.getElementById("google-btn").addEventListener("click", () => {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider)
+        .then(() => window.location.href = "admin.html")
+        .catch(err => alert("Error con Google: " + err.message));
+    });
+  </script>
+</head>
+<body>
+  <div class="login-box">
+    <h2 style="text-align:center;">Iniciar sesión</h2>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Correo electrónico" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit">Ingresar</button>
+    </form>
+    <button id="google-btn" class="google-btn">Ingresar con Google</button>
+  </div>
+</body>
+</html>

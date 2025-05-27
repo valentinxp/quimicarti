@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Panel Admin</title>
+<link href="estilo.css" rel="stylesheet"/>
+<style>
+    body { font-family: Poppins, sans-serif; padding: 40px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; text-align: center; border-bottom: 1px solid #ccc; }
+    th { background: #3196cf; color: white; }
+    #agregar-form { margin-top: 30px; display: flex; gap: 10px; flex-wrap: wrap; }
+    #agregar-form input { padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+    #agregar-form button { background: #28a745; color: white; border: none; }
+    #login-box {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex; justify-content: center; align-items: center;
+      z-index: 9999;
+    }
+    #login-box form {
+      background: white; padding: 30px;
+      border-radius: 10px; text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    #login-box input {
+      padding: 10px; margin-top: 10px; width: 100%;
+    }
+  </style>
+<script type="module">
+    window.addEventListener("DOMContentLoaded", () => {
+      const loginBox = document.getElementById("login-box");
+      const form = document.getElementById("password-form");
+      const passwordInput = document.getElementById("admin-password");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (passwordInput.value === "artisur2024") {
+          loginBox.style.display = "none";
+        } else {
+          alert("Contraseña incorrecta ❌");
+        }
+      });
+    });
+  </script>
+</head>
+<body><button id="logout-btn" style="position: fixed; top: 20px; right: 20px; padding: 10px 18px; background: #db4437; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Cerrar sesión</button>
+<h2>Administración de productos</h2>
+<form id="agregar-form">
+<input id="nombre" placeholder="Nombre del producto" required="" type="text"/>
+<input id="precio" placeholder="Precio" required="" type="number"/>
+<input id="imagen" placeholder="Nombre imagen (ej: producto.jpg)" required="" type="text"/>
+<input id="link" placeholder="Link página (ej: producto-x.html)" required="" type="text"/>
+<button type="submit">Agregar producto</button>
+</form>
+<table id="tabla-productos">
+<thead>
+<tr>
+<th>Producto</th>
+<th>Precio</th>
+<th>Imagen</th>
+<th>Link</th>
+<th>Editar</th>
+<th>Borrar</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<script type="module">
+    import { agregarProducto, obtenerProductos } from './firebase.js';
+
+    const tabla = document.querySelector("#tabla-productos tbody");
+    const form = document.getElementById("agregar-form");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const precio = document.getElementById("precio").value;
+      const imagen = document.getElementById("imagen").value;
+      const link = document.getElementById("link").value;
+
+      await agregarProducto({ nombre, precio, imagen, link });
+      form.reset();
+      location.reload();
+    });
+
+    async function cargarProductos() {
+      const productos = await obtenerProductos();
+      productos.forEach(p => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+          <td>${p.nombre}</td>
+          <td>$${p.precio}</td>
+          <td>${p.imagen}</td>
+          <td>${p.link}</td>
+          <td><button>✏️</button></td>
+          <td><button>🗑</button></td>
+        `;
+        tabla.appendChild(fila);
+      });
+    }
+
+    cargarProductos();
+  </script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAewz-r6rwp7zk71UIHsTjwQSj1rmCgNWM",
+  authDomain: "quimicartisur.firebaseapp.com",
+  projectId: "quimicartisur",
+  storageBucket: "quimicartisur.firebasestorage.app",
+  messagingSenderId: "272529571760",
+  appId: "1:272529571760:web:1f8d435e762e61a332e075",
+  measurementId: "G-P0767HS3P8"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Proteger acceso al admin
+onAuthStateChanged(auth, user => {
+  if (!user) {
+    alert("Acceso denegado. Iniciá sesión primero.");
+    window.location.href = "login.html";
+  }
+});
+</script><script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAewz-r6rwp7zk71UIHsTjwQSj1rmCgNWM",
+  authDomain: "quimicartisur.firebaseapp.com",
+  projectId: "quimicartisur",
+  storageBucket: "quimicartisur.firebasestorage.app",
+  messagingSenderId: "272529571760",
+  appId: "1:272529571760:web:1f8d435e762e61a332e075",
+  measurementId: "G-P0767HS3P8"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+document.getElementById("logout-btn").addEventListener("click", () => {
+  signOut(auth).then(() => {
+    alert("Sesión cerrada");
+    window.location.href = "login.html";
+  });
+});
+</script></body>
+</html>
