@@ -30,6 +30,8 @@ function actualizarCarrito() {
   const subtotalElem = document.querySelector(".cart-footer p:nth-of-type(1)");
   const totalElem = document.querySelector(".cart-footer p:nth-of-type(2)");
 
+  if (!contenido || !subtotalElem || !totalElem) return;
+
   contenido.innerHTML = "";
   let subtotal = 0;
 
@@ -75,16 +77,43 @@ function eliminarProducto(index) {
   guardarCarrito();
 }
 
-function toggleCart() {
-  const cart = document.getElementById("cartPanel");
-  cart.classList.toggle("open");
-}
+document.addEventListener("DOMContentLoaded", () => {
+  cargarCarrito();
+
+  const iconoCarrito = document.querySelector(".fa-shopping-cart");
+  if (iconoCarrito) {
+    iconoCarrito.addEventListener("click", () => {
+      const panel = document.getElementById("cartPanel");
+      if (panel) panel.classList.toggle("open");
+    });
+  }
+
+  const iniciarCompraBtn = document.getElementById("iniciar-compra");
+  if (iniciarCompraBtn) {
+    iniciarCompraBtn.addEventListener("click", enviarWhatsApp);
+  }
+
+  const loginIcon = document.querySelector(".fa-user");
+  if (loginIcon) {
+    loginIcon.addEventListener("click", () => window.location.href = "login.html");
+  }
+
+  const lupaCentral = document.querySelector(".fa-search");
+  if (lupaCentral && document.querySelector(".search-bar input")) {
+    lupaCentral.addEventListener("click", () => {
+      const input = document.querySelector(".search-bar input");
+      if (input) input.focus();
+    });
+  }
+});
 
 function mostrarFeedback(nombre) {
   const fb = document.getElementById("feedback");
-  fb.innerText = `"${nombre}" agregado al carrito ✅`;
-  fb.classList.add("show");
-  setTimeout(() => fb.classList.remove("show"), 2000);
+  if (fb) {
+    fb.innerText = `"${nombre}" agregado al carrito ✅`;
+    fb.classList.add("show");
+    setTimeout(() => fb.classList.remove("show"), 2000);
+  }
 }
 
 function enviarWhatsApp() {
@@ -105,5 +134,3 @@ function enviarWhatsApp() {
   const url = `https://wa.me/${telefono}?text=${mensaje}`;
   window.open(url, "_blank");
 }
-
-document.addEventListener("DOMContentLoaded", cargarCarrito);
