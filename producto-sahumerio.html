@@ -1,89 +1,57 @@
 
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sahumerio Mágico</title>
-  <link rel="stylesheet" href="estilo.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    .producto-detalle { display: flex; flex-wrap: wrap; gap: 40px; max-width: 1200px; margin: auto; padding: 40px; color: white; }
-    .producto-detalle img { max-width: 500px; width: 100%; border-radius: 10px; }
-    .producto-info { flex: 1; min-width: 300px; }
-    .producto-info h1 { margin-bottom: 10px; }
-    .producto-precio { font-size: 1.5em; margin-bottom: 20px; }
-    .cantidad { margin-bottom: 20px; }
-    .cantidad input { width: 50px; text-align: center; font-size: 1em; }
-    .agregar-btn { background-color: #28a745; color: white; padding: 12px 25px; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; margin-bottom: 20px; }
-    .descripcion { font-size: 1em; line-height: 1.6; }
-    .redes { margin-top: 20px; font-size: 1.5em; }
-    .redes a { color: white; margin-right: 15px; }
-    .cart-panel {
-      position: fixed; top: 0; right: -400px; width: 400px; height: 100vh;
-      background-color: white; box-shadow: -2px 0 10px rgba(0,0,0,0.2);
-      transition: right 0.3s ease; z-index: 9999; padding: 20px; overflow-y: auto;
-    }
-    .cart-panel.open { right: 0; }
-    .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .cart-header h2 { margin: 0; color: #333; }
-    .cart-close { font-size: 1.5em; cursor: pointer; }
-    .cart-footer { margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px; }
-    .btn-comprar {
-      margin-top: 10px; display: block; width: 100%; padding: 10px;
-      background-color: #28a745; color: white; border: none; border-radius: 5px;
-      font-size: 1em; cursor: pointer;
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sahumerio Mágico</title>
+<link href="estilo.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Logo Química Artisur" />
-    <div class="icon-bar">
-      <i class="fas fa-search"></i>
-      <i class="fas fa-user"></i>
-      <i class="fas fa-shopping-cart" onclick="toggleCart()"></i>
-    </div>
-  </header>
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="#">Productos</a>
-    <a href="#">Contacto</a>
-  </nav>
-  <section class="producto-detalle">
-    <img src="sahumerio-variedad-aromatica.jpg" alt="Sahumerio Mágico">
-    <div class="producto-info">
-      <h1>Sahumerio Mágico</h1>
-      <div class="producto-precio">$600.00</div>
-      <div class="cantidad">Cantidad: <input type="number" value="1" min="1" /></div>
-      <button class="agregar-btn" onclick="agregarAlCarrito('Sahumerio Mágico', 600, 'sahumerio-variedad-aromatica.jpg')">Agregar al carrito</button>
-      <div class="descripcion">
-        <p>Descripción del producto Sahumerio Mágico. Ideal para tus necesidades del hogar o auto.</p>
-      </div>
-      <div class="redes">
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-pinterest"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <div id="cartPanel" class="cart-panel">
-    <div class="cart-header">
-      <h2>Carrito</h2>
-      <span class="cart-close" onclick="toggleCart()">&times;</span>
-    </div>
-    <div class="cart-content">
-      <p>Tu carrito está vacío.</p>
-    </div>
-    <div class="cart-footer">
-      <p><strong>Subtotal:</strong> $0.00</p>
-      <p><strong>Total:</strong> $0.00</p>
-      <button class="btn-comprar">Iniciar Compra</button>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-<div id="feedback" class="feedback"></div>
+<header>
+<img alt="Logo Química Artisur" src="imagenes/sahumerio-variedad-aromatica.jpg" style="max-width:150px; display:block; margin:20px auto;"/>
+<div class="icon-bar">
+<i class="fas fa-search"></i>
+<i class="fas fa-user"></i>
+<i class="fas fa-shopping-cart" onclick="toggleCart()"></i>
+</div>
+</header>
+<nav style="display:flex;justify-content:center;gap:20px;background:#3196cf;padding:10px;">
+<a href="index.html" style="color:white;">Inicio</a>
+<a href="#footer" style="color:white;">Contacto</a>
+</nav>
+<section class="producto-detalle" style="display:flex;flex-wrap:wrap;gap:40px;max-width:1200px;margin:auto;padding:40px;color:white;">
+<img alt="Sahumerio Mágico" src="imagenes/sahumerio-variedad-aromatica.jpg" style="max-width:500px;width:100%;border-radius:10px;"/>
+<div class="producto-info" style="flex:1;min-width:300px;">
+<h1>Sahumerio Mágico</h1>
+<div class="producto-precio" style="font-size:1.5em;margin-bottom:20px;">$600</div>
+<button class="agregar-btn" onclick="agregarAlCarrito('Sahumerio Mágico', 600, 'imagenes/sahumerio-variedad-aromatica.jpg')" style="padding:12px 25px;background:#28a745;color:white;border:none;border-radius:5px;font-size:1em;cursor:pointer;margin-bottom:20px;">Agregar al carrito</button>
+<div class="descripcion" style="font-size:1em;line-height:1.6;">
+<p>Este producto es ideal para tus necesidades diarias. Calidad garantizada.</p>
+</div>
+<div class="redes" style="margin-top:20px;font-size:1.5em;">
+<a href="https://instagram.com/21artisur" style="color:white;margin-right:15px;" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://wa.me/5491173632056" style="color:white;" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+</section>
+<div class="cart-panel" id="cartPanel">
+<div class="cart-header">
+<h2>Carrito</h2>
+<span class="cart-close" onclick="toggleCart()">×</span>
+</div>
+<div class="cart-content">
+<p>Tu carrito está vacío.</p>
+</div>
+<div class="cart-footer">
+<p><strong>Subtotal:</strong> $0.00</p>
+<p><strong>Total:</strong> $0.00</p>
+<button class="btn-comprar" onclick="enviarWhatsApp()">Iniciar Compra</button>
+</div>
+</div>
+<div class="feedback" id="feedback"></div>
+<script src="script.js"></script>
 </body>
 </html>

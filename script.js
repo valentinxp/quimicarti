@@ -75,10 +75,16 @@ function eliminarProducto(index) {
   guardarCarrito();
 }
 
-function toggleCart() {
-  const cart = document.getElementById("cartPanel");
-  cart.classList.toggle("open");
-}
+// NUEVO: abrir carrito al hacer clic en ícono directamente
+document.addEventListener("DOMContentLoaded", () => {
+  cargarCarrito();
+  const iconoCarrito = document.querySelector(".fa-shopping-cart");
+  if (iconoCarrito) {
+    iconoCarrito.addEventListener("click", () => {
+      document.getElementById("cartPanel").classList.toggle("open");
+    });
+  }
+});
 
 function mostrarFeedback(nombre) {
   const fb = document.getElementById("feedback");
@@ -105,5 +111,3 @@ function enviarWhatsApp() {
   const url = `https://wa.me/${telefono}?text=${mensaje}`;
   window.open(url, "_blank");
 }
-
-document.addEventListener("DOMContentLoaded", cargarCarrito);
