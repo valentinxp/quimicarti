@@ -88,172 +88,22 @@
       font-size: 1em;
       cursor: pointer;
     }
-  
-.cart-close {
-  font-size: 1.5em;
-  cursor: pointer;
-  color: #333;
-  padding: 5px;
-}
-</style>
-<style>html { scroll-behavior: smooth; }</style><link href="logo.png" rel="icon" type="image/png"/><style>
-@keyframes fadeOut {
-  0% {opacity:1;}
-  80% {opacity:1;}
-  100% {opacity:0;display:none;}
-}
-</style><style>
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.fade-in.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-@media (max-width: 768px) {
-  .main-nav {
-    display: none;
-    flex-direction: column;
-    background-color: #3196cf;
-    padding: 10px;
-  }
-  .main-nav a {
-    margin: 10px 0;
-  }
-  #menu-toggle:checked + label + .main-nav {
-    display: flex;
-  }
-  .menu-icon {
-    font-size: 2em;
-    color: white;
-    cursor: pointer;
-    padding: 10px 20px;
-    display: block;
-    background: #3196cf;
-  }
-}
-</style></head>
+  </style>
+</head>
 <body>
-<div id="bienvenida" style="position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#003366;color:white;padding:15px 30px;border-radius:30px;box-shadow:0 5px 15px rgba(0,0,0,0.2);font-weight:bold;z-index:10000;animation:fadeOut 4s ease forwards;opacity:1;">¡Bienvenido a Química Artisur!</div><header id="inicio">
+<header>
 <img alt="Logo Química Artisur" src="logo.png" style="max-width: 150px; display: block; margin: 20px auto;"/>
-<div class="icon-bar"><input id="floatingSearch" placeholder="Buscar..." style="display:none;position:absolute;top:20px;right:120px;padding:6px 12px;border-radius:20px;border:1px solid #ccc;outline:none;width:200px;z-index:1000;font-family:'Poppins', sans-serif;" type="text"/>
-<i class="fas fa-search" id="searchToggle"></i>
+<div class="icon-bar">
+<i class="fas fa-search"></i>
 <i class="fas fa-user"></i>
 <i class="fas fa-shopping-cart" onclick="toggleCart()"></i>
 </div>
 </header>
-<div style="text-align:center; margin: 20px;">
-<input id="searchInput" placeholder="Buscar productos..." style="padding:10px; width:280px; border-radius:20px; border:1px solid #ccc;" type="text"/><ul id="autocomplete-results" style="list-style:none;padding:0;margin:5px auto;width:280px;background:white;border:1px solid #ccc;border-radius:5px;position:absolute;z-index:999;max-height:200px;overflow-y:auto;font-size:0.95em;display:none;"></ul>
-</div>
-<input id="menu-toggle" type="checkbox"/>
-<label class="menu-icon" for="menu-toggle">☰</label>
-<nav class="main-nav" id="mainNav">
-<a href="#inicio">Inicio</a>
-<a href="#destacados">Productos</a>
-<a href="#footer">Contacto</a>
-</nav><section class="fade-in" id="ofertas" style="padding:40px 20px;"><h2 style="text-align:center;">Ofertas</h2><div class="galeria-productos"><p id="loading-msg" style="text-align:center;">Cargando productos...</p></div></section>
-<section class="fade-in" id="categorias" style="padding:40px 20px;">
-<h2 style="text-align:center;">Categorías</h2>
-<div class="categoria-grid">
-<div class="categoria-item" onclick="filtrarCategoria('auto')">
-<span>🚗</span>
-<p>Auto</p>
-</div>
-<div class="categoria-item" onclick="filtrarCategoria('aromatizantes')">
-<span>🕯</span>
-<p>Aromatizantes</p>
-</div>
-<div class="categoria-item" onclick="filtrarCategoria('utensilios')">
-<span>🧼</span>
-<p>Utensilios</p>
-</div>
-<div class="categoria-item" onclick="filtrarCategoria('todos')">
-<span>🛍</span>
-<p>Todos</p>
-</div>
-</div>
-</section>
-<section class="fade-in" id="destacados" style="padding:40px 20px;"><h2 style="text-align:center;">Productos destacados</h2>
-<div class="filtros-categorias" style="text-align:center; margin: 30px 0;">
-<button onclick="filtrarCategoria('todos')">Todos</button>
-<button onclick="filtrarCategoria('auto')">Auto</button>
-<button onclick="filtrarCategoria('aromatizantes')">Aromatizantes</button>
-<button onclick="filtrarCategoria('utensilios')">Utensilios</button>
-</div>
-<div class="galeria-productos">
-<div class="card" data-categoria="aromatizantes">
-<a href="producto-sahumerio-vainilla.html">
-<img alt="Sahumerio Vainilla" src="imagenes/sahumerio-vainilla.jpg"/>
-<h3>Sahumerio Vainilla</h3>
-<p class="precio">$600</p>
-<button onclick="agregarAlCarrito('Sahumerio Vainilla', 600, 'imagenes/sahumerio-vainilla.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-<div class="card" data-categoria="aromatizantes">
-<a href="producto-sahumerio.html">
-<img alt="Sahumerio Mágico" src="imagenes/sahumerio-variedad-aromatica.jpg"/>
-<h3>Sahumerio Mágico</h3>
-<p class="precio">$600</p>
-<button onclick="agregarAlCarrito('Sahumerio Mágico', 600, 'imagenes/sahumerio-variedad-aromatica.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-<div class="card" data-categoria="auto">
-<a href="producto-shampoo.html">
-<img alt="Shampoo Auto" src="imagenes/shampoo-auto.jpg"/>
-<h3>Shampoo Auto</h3>
-<p class="precio">$2800</p>
-<button onclick="agregarAlCarrito('Shampoo Auto', 2800, 'imagenes/shampoo-auto.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-<div class="card" data-categoria="auto">
-<a href="producto-silicona-exterior.html">
-<img alt="Silicona Exterior" src="imagenes/silicona-exterior.jpg"/>
-<h3>Silicona Exterior</h3>
-<p class="precio">$3500</p>
-<button onclick="agregarAlCarrito('Silicona Exterior', 3500, 'imagenes/silicona-exterior.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-<div class="card" data-categoria="aromatizantes">
-<a href="producto-conitos.html">
-<img alt="Conitos Aromáticos" src="imagenes/conitos-aromatizantes.jpg"/>
-<h3>Conitos Aromáticos</h3>
-<p class="precio">$700</p>
-<button onclick="agregarAlCarrito('Conitos Aromáticos', 700, 'imagenes/conitos-aromatizantes.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-<div class="card" data-categoria="utensilios">
-<a href="producto-rejilla.html">
-<img alt="Rejilla Común" src="imagenes/rejilla-small.jpg"/>
-<h3>Rejilla Común</h3>
-<p class="precio">$800</p>
-<button onclick="agregarAlCarrito('Rejilla Común', 800, 'imagenes/rejilla-small.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-<div class="card" data-categoria="utensilios">
-<a href="producto-esponja-acero.html">
-<img alt="Esponja Acero" src="imagenes/esponja-acero-grande.jpg"/>
-<h3>Esponja Acero</h3>
-<p class="precio">$500</p>
-<button onclick="agregarAlCarrito('Esponja Acero', 500, 'imagenes/esponja-acero-grande.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-<div class="card" data-categoria="utensilios">
-<a href="producto-esponja-chica.html">
-<img alt="Esponja Chica" src="imagenes/esponja-chica-1.jpg"/>
-<h3>Esponja Chica</h3>
-<p class="precio">$450</p>
-<button onclick="agregarAlCarrito('Esponja Chica', 450, 'imagenes/esponja-chica-1.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-<div class="card" data-categoria="utensilios">
-<a href="producto-esponja-grande.html">
-<img alt="Esponja Grande" src="imagenes/esponja-grande.jpg"/>
-<h3>Esponja Grande</h3>
-<p class="precio">$600</p>
-<button onclick="agregarAlCarrito('Esponja Grande', 600, 'imagenes/esponja-grande.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-<div class="card" data-categoria="auto">
-<a href="producto-combo-auto.html">
-<img alt="Combo Auto" src="imagenes/auto-portada.jpg"/>
-<h3>Combo Auto</h3>
-<p class="precio">$12000</p>
-<button onclick="agregarAlCarrito('Combo Auto', 12000, 'imagenes/auto-portada.jpg')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">Agregar al carrito</button></a>
-</div>
-</div></section>
+<nav>
+<a href="#">Inicio</a>
+<a href="#">Productos</a>
+<a href="#">Contacto</a>
+</nav>
 <div class="cart-panel" id="cartPanel">
 <div class="cart-header">
 <h2>Carrito</h2>
@@ -274,231 +124,33 @@
       cart.classList.toggle("open");
     }
   </script>
-<section class="fade-in" id="quienes-somos" style="padding:40px 20px; background:#f4f6f8; color:#333;">
-<div style="max-width:900px; margin:auto; text-align:center;">
-<h2>Quiénes somos</h2>
-<p style="font-size:1.1em; line-height:1.6; margin-top:20px;">
-      En <strong>Química Artisur</strong> nos dedicamos con pasión a ofrecerte los mejores productos de limpieza, aromatizantes y artículos para el hogar y el auto.  
-      Somos una empresa familiar que cree en la atención cercana, la calidad y los precios justos.
-    </p>
-<p style="margin-top:15px;">
-      Nuestra misión es acompañarte en tu día a día con productos que realmente funcionen, y hacerlo con buena onda y responsabilidad.
-    </p>
+
+<footer style="background:#000; color:white; padding:40px 20px; font-family:Poppins, sans-serif;">
+<div style="max-width:1200px; margin:auto; display:flex; flex-wrap:wrap; justify-content:space-between; gap:30px;">
+<div style="flex:1; min-width:200px;">
+<h3>Química Artisur</h3>
+<p style="margin:10px 0;">Productos de limpieza y aromatizantes al mejor precio.</p>
+<p style="margin:10px 0;">Email: <a href="mailto:21artisur@gmail.com" style="color:#1da1f2;">21artisur@gmail.com</a></p>
+<p style="margin:10px 0;">WhatsApp: <a href="https://wa.me/5491173632056" style="color:#1da1f2;" target="_blank">+54 9 11 7363 2056</a></p>
 </div>
-</section>
-<footer id="footer" style="background-color:#003366; color:white; padding:40px 20px; text-align:center;">
-<p><strong>Química Artisur</strong></p>
-<p>Tel: 11 7363 2056 | Email: contacto@quimicartisur.com.ar</p>
-<p>
-<a href="#inicio" style="color:white; margin:0 10px;">Inicio</a>
-<a href="#destacados" style="color:white; margin:0 10px;">Productos</a>
-<a href="#footer" style="color:white; margin:0 10px;">Contacto</a>
-</p>
-<div class="social-icons" style="margin-top:10px; font-size:1.5em;">
-<a href="https://instagram.com/21artisur" style="color:white; margin: 0 10px;" target="_blank"><i class="fab fa-instagram"></i></a>
-<a href="https://wa.me/5491173632056?text=Hola%20quiero%20hacer%20una%20consulta" style="color:white; margin: 0 10px;" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div style="flex:1; min-width:200px;">
+<h4>Navegación</h4>
+<ul style="list-style:none; padding:0; line-height:1.8;">
+<li><a href="#inicio" style="color:white;">Inicio</a></li>
+<li><a href="#destacados" style="color:white;">Productos</a></li>
+<li><a href="#footer" style="color:white;">Contacto</a></li>
+<li><a href="login.html" style="color:white;">Acceso</a></li>
+</ul>
 </div>
-<p style="margin-top:20px; font-size:0.8em;">© 2024 Química Artisur. Todos los derechos reservados.</p>
+<div style="flex:1; min-width:200px;">
+<h4>Seguinos</h4>
+<div style="font-size:1.5em;">
+<a href="https://instagram.com/21artisur" style="margin-right:15px; color:white;" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://wa.me/5491173632056" style="color:white;" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+</div>
+<p style="text-align:center; margin-top:30px; font-size:0.8em;">© 2024 Química Artisur. Todos los derechos reservados.</p>
 </footer>
-<script>
-function normalizarTexto(texto) {
-  return texto.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("searchInput");
-  input.addEventListener("input", function () {
-    const filtro = normalizarTexto(this.value);
-    const cards = document.querySelectorAll(".galeria-productos .card");
-
-    cards.forEach(card => {
-      const texto = normalizarTexto(card.textContent);
-      card.style.display = texto.includes(filtro) ? "block" : "none";
-    });
-  });
-});
-</script><script>
-const productos = [
-  { nombre: "Sahumerio Vainilla", link: "producto-sahumerio-vainilla.html" },
-  { nombre: "Sahumerio Mágico", link: "producto-sahumerio.html" },
-  { nombre: "Shampoo Auto", link: "producto-shampoo.html" },
-  { nombre: "Silicona Exterior", link: "producto-silicona-exterior.html" },
-  { nombre: "Conitos Aromáticos", link: "producto-conitos.html" },
-  { nombre: "Rejilla Común", link: "producto-rejilla.html" },
-  { nombre: "Esponja Acero", link: "producto-esponja-acero.html" },
-  { nombre: "Esponja Chica", link: "producto-esponja-chica.html" },
-  { nombre: "Esponja Grande", link: "producto-esponja-grande.html" },
-  { nombre: "Combo Auto", link: "producto-combo-auto.html" }
-];
-
-const input = document.getElementById("searchInput");
-const resultados = document.getElementById("autocomplete-results");
-
-input.addEventListener("input", () => {
-  const filtro = input.value.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-  resultados.innerHTML = "";
-  if (filtro.length === 0) {
-    resultados.style.display = "none";
-    return;
-  }
-  const coincidencias = productos.filter(p =>
-    p.nombre.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").includes(filtro)
-  );
-  if (coincidencias.length === 0) {
-    resultados.style.display = "none";
-    return;
-  }
-  coincidencias.forEach(p => {
-    const li = document.createElement("li");
-    li.innerHTML = `<a href="${p.link}" style="text-decoration:none;color:#333;display:block;padding:8px 12px;">${p.nombre}</a>`;
-    resultados.appendChild(li);
-  });
-  resultados.style.display = "block";
-});
-
-document.addEventListener("click", e => {
-  if (!input.contains(e.target)) resultados.style.display = "none";
-});
-</script><script>
-function filtrarCategoria(cat) {
-  const cards = document.querySelectorAll(".galeria-productos .card");
-  cards.forEach(card => {
-    if (cat === "todos" || card.getAttribute("data-categoria") === cat) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
-</script><script>
-const searchToggle = document.getElementById("searchToggle");
-const searchInput = document.getElementById("floatingSearch");
-
-if (searchToggle && searchInput) {
-  searchToggle.addEventListener("click", () => {
-    searchInput.style.display = "block";
-    searchInput.focus();
-  });
-
-  searchInput.addEventListener("blur", () => {
-    setTimeout(() => {
-      searchInput.style.display = "none";
-    }, 300);
-  });
-
-  searchInput.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      searchInput.blur();
-    }
-  });
-}
-</script><script>
-function normalizarTexto(texto) {
-  return texto.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-}
-
-const floatingInput = document.getElementById("floatingSearch");
-if (floatingInput) {
-  floatingInput.addEventListener("input", function () {
-    const filtro = normalizarTexto(this.value);
-    const cards = document.querySelectorAll(".galeria-productos .card");
-
-    cards.forEach(card => {
-      const texto = normalizarTexto(card.textContent);
-      card.style.display = texto.includes(filtro) ? "block" : "none";
-    });
-  });
-}
-</script><script>
-function enviarWhatsApp() {
-  if (carrito.length === 0) return;
-
-  let mensaje = "Hola, quiero hacer una compra:%0A";
-  let total = 0;
-
-  carrito.forEach(p => {
-    const subtotal = p.precio * p.cantidad;
-    mensaje += `- ${p.nombre} x${p.cantidad} = $${subtotal.toFixed(2)}%0A`;
-    total += subtotal;
-  });
-
-  mensaje += `%0ATotal: $${total.toFixed(2)}`;
-  const telefono = "5491173632056";
-  const url = `https://wa.me/${telefono}?text=${mensaje}`;
-
-  const aviso = document.createElement("div");
-  aviso.innerText = "¡Gracias por tu compra! Abriendo WhatsApp...";
-  aviso.style.position = "fixed";
-  aviso.style.top = "20px";
-  aviso.style.right = "20px";
-  aviso.style.background = "#28a745";
-  aviso.style.color = "white";
-  aviso.style.padding = "12px 20px";
-  aviso.style.borderRadius = "10px";
-  aviso.style.zIndex = 9999;
-  aviso.style.boxShadow = "0 3px 10px rgba(0,0,0,0.2)";
-  aviso.style.fontWeight = "bold";
-  document.body.appendChild(aviso);
-
-  setTimeout(() => {
-    window.open(url, "_blank");
-    aviso.remove();
-  }, 1200);
-}
-</script>
-<a class="whatsapp-float" href="https://wa.me/5491173632056?text=Hola%2C%20quiero%20hacer%20una%20consulta" target="_blank">
-  💬 Consultanos por WhatsApp
-</a>
-<script>
-window.addEventListener('scroll', () => {
-  document.querySelectorAll('.fade-in').forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if (top < window.innerHeight * 0.9) {
-      el.classList.add('show');
-    }
-  });
-});
-</script><script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAewz-r6rwp7zk71UIHsTjwQSj1rmCgNWM",
-  authDomain: "quimicartisur.firebaseapp.com",
-  projectId: "quimicartisur",
-  storageBucket: "quimicartisur.firebasestorage.app",
-  messagingSenderId: "272529571760",
-  appId: "1:272529571760:web:1f8d435e762e61a332e075",
-  measurementId: "G-P0767HS3P8"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const galeria = document.querySelector(".galeria-productos");
-const loading = document.getElementById("loading-msg");
-
-async function cargarProductos() {
-  const querySnapshot = await getDocs(collection(db, "productos"));
-  galeria.innerHTML = "";
-  querySnapshot.forEach((doc) => {
-    const p = doc.data();
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <a href="\${p.link}">
-        <img src="imagenes/\${p.imagen}" alt="\${p.nombre}">
-        <h3>\${p.nombre}</h3>
-        <p class="precio">$ \${p.precio}</p>
-      </a>
-      <button onclick="agregarAlCarrito('\${p.nombre}', \${p.precio}, 'imagenes/\${p.imagen}')" style="margin-top:8px;padding:8px 12px;border:none;background:#28a745;color:white;border-radius:5px;cursor:pointer;">
-        Agregar al carrito
-      </button>
-    `;
-    galeria.appendChild(card);
-  });
-}
-
-cargarProductos();
-</script></body>
+</body>
 </html>
